@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Food Ordering App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= LOGIN / REGISTER PAGE ================= -->
+    <div class="page" id="loginPage">
+        <div class="form-box" id="loginBox">
+            <h2>Login</h2>
+            <input type="text" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="loginUser()">Login</button>
+            <p class="error" id="loginError"></p>
+            <p>New user? <span class="link" onclick="showRegister()">Register here</span></p>
+        </div>
+
+        <div class="form-box" id="registerBox" style="display:none">
+            <h2>Register</h2>
+            <input type="text" id="regName" placeholder="Full name">
+            <input type="text" id="regEmail" placeholder="Email">
+            <input type="password" id="regPassword" placeholder="Password (min 4 characters)">
+            <button onclick="registerUser()">Register</button>
+            <p class="error" id="regError"></p>
+            <p>Already have an account? <span class="link" onclick="showLogin()">Login here</span></p>
+        </div>
+    </div>
+
+    <!-- ================= MAIN FOOD PAGE ================= -->
+    <div class="page" id="appPage">
+
+        <!-- Top bar -->
+        <div class="navbar">
+            <h2>Tasty Bites</h2>
+            <input type="text" id="searchBox" placeholder="Search food...">
+            <div>
+                <span id="welcome"></span>
+                <button onclick="showHistory()">My Orders</button>
+                <button onclick="openCart()">Cart (<span id="cartCount">0</span>)</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Category buttons -->
+        <div class="categories">
+            <button onclick="filterCategory('All')">All</button>
+            <button onclick="filterCategory('Pizza')">Pizza</button>
+            <button onclick="filterCategory('Burgers')">Burgers</button>
+            <button onclick="filterCategory('Rice')">Rice</button>
+            <button onclick="filterCategory('Snacks')">Snacks</button>
+            <button onclick="filterCategory('Desserts')">Desserts</button>
+            <button onclick="filterCategory('Drinks')">Drinks</button>
+        </div>
+
+        <!-- Food items come here -->
+        <div class="menu" id="menu"></div>
+
+        <!-- Cart box (hidden at first) -->
+        <div class="cart-box" id="cartBox">
+            <h3>Your Cart</h3>
+            <div id="cartItems"></div>
+            <hr>
+            <p>Subtotal: Rs <span id="subtotal">0</span></p>
+            <p>GST (5%): Rs <span id="gst">0</span></p>
+            <p>Delivery: Rs <span id="delivery">0</span></p>
+            <h4>Total: Rs <span id="total">0</span></h4>
+            <button onclick="openPayment()">Checkout</button>
+            <button onclick="closeCart()">Close</button>
+        </div>
+    </div>
+
+    <!-- ================= PAYMENT PAGE ================= -->
+    <div class="page" id="paymentPage">
+        <div class="form-box wide">
+
+            <div id="payForm">
+                <h2>Payment</h2>
+                <div id="orderSummary"></div>
+
+                <label>Delivery address</label>
+                <textarea id="address" rows="3" placeholder="Enter your address"></textarea>
+
+                <label>Payment method</label>
+                <select id="payMethod" onchange="changeMethod()">
+                    <option value="Cash on Delivery">Cash on Delivery</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Card">Debit / Credit Card</option>
+                </select>
+
+                <div id="upiBox" style="display:none">
+                    <input type="text" id="upiId" placeholder="UPI ID (example: name@upi)">
+                </div>
+
+                <div id="cardBox" style="display:none">
+                    <input type="text" id="cardNumber" placeholder="Card number (16 digits)" maxlength="16">
+                    <input type="text" id="cardName" placeholder="Name on card">
+                    <input type="text" id="cardExpiry" placeholder="Expiry (MM/YY)" maxlength="5">
+                    <input type="password" id="cardCvv" placeholder="CVV" maxlength="3">
+                </div>
+
+                <p class="error" id="payError"></p>
+                <button onclick="payNow()">Pay Now</button>
+                <button onclick="goHome()">Back</button>
+            </div>
+
+            <div id="paySuccess" style="display:none">
+                <h2>Order Placed!</h2>
+                <p id="successMsg"></p>
+                <button onclick="goHome()">Back to Menu</button>
+                <button onclick="showHistory()">View My Orders</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= ORDER HISTORY PAGE ================= -->
+    <div class="page" id="historyPage">
+        <div class="navbar">
+            <h2>My Orders</h2>
+            <button onclick="goHome()">Back to Menu</button>
+        </div>
+        <div id="historyList"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
